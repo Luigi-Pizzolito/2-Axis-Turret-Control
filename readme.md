@@ -32,7 +32,8 @@ Resets the pitch (rotation around axis perpendicular to facing direction) to `0Â
 ### Using the turret with C++ on Windows
 To use the turret in Windows with C++, connect to the serial port and send your angles formated as an ASCII string. See PC_Demo for a demo.
 ```c++
-#include "serial.h" //Serial Library
+#include "serial.h" //libraries
+#include <string>
 
 serial myserial("COM5"); //connect to COM port
 
