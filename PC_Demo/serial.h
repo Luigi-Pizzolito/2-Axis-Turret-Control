@@ -20,9 +20,8 @@
 
 // serial protocol
 struct serial {
-
 public:
-	serial(char *portName = "",
+	serial(std::string,
 		DWORD baudRate = SERIAL_BAUDRATE,
 		BYTE byteSize = SERIAL_BYTESIZE,
 		BYTE parity = SERIAL_PARITY,

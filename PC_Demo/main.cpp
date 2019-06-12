@@ -1,31 +1,38 @@
 #include "serial.h"
 #include <iostream>
-#include <string> // for string and to_string() 
+#include <string>
 using namespace std;
 
-int pitch = 0;
-int yaw = 0;
+signed int pitch = 0;
+signed int yaw = 0;
+
+string port;
 
 int main() {
-	string port;
+	
+	// ask for serial port and connect to arduino
 	cout << "Enter COM Port (COMX): ";
 	cin >> port;
-	serial myserial(port);
+	serial myserial(port,115200);
 	
 	while (true) {
+		// ask for angles to move to
 		cout << "\nEnter angles,  pitch(-90 - 90) and yaw(-135 - 135) : \n";
 		cout << "Pitch: ";
 		cin >> pitch;
 		cout << "Yaw: ";
 		cin >> yaw;
 
+		//convert angles to serial message and send
 		string str = "";
 		str = to_string(pitch) + "," + to_string(yaw) + ".";
 		const char* c = str.c_str();
-
-		// cout << c;
-		myserial.write(c, sizeof(c));
+		myserial.write(c, str.size());
+		
+		//display movement on console
 		cout << "\nMoved to (" << pitch << ", " << yaw << ")\n";
+		//cout << c;
+		
 	}
 
 	return 0;

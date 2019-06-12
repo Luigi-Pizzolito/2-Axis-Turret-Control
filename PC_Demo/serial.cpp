@@ -4,7 +4,7 @@
 using namespace std;
 
 // init serial
-serial::serial(char *portName,
+serial::serial(string portName,
 	DWORD baudRate,
 	BYTE byteSize,
 	BYTE parity,
@@ -20,7 +20,7 @@ serial::serial(char *portName,
 
 	// create serial file
 	hcom = CreateFileA(
-		portName,
+		PortName.c_str(),
 		GENERIC_READ | GENERIC_WRITE,
 		0,
 		NULL,
@@ -100,7 +100,7 @@ int serial::read(char *serialOut, const int size) {
 			cerr << "read timeout " << endl;
 			break;
 		}
-	
+
 	};
 	Sleep(5);
 

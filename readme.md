@@ -35,13 +35,17 @@ To use the turret in Windows with C++, connect to the serial port and send your 
 #include "serial.h" //libraries
 #include <string>
 
-serial myserial("COM5"); //connect to COM port
+int main() {
+  serial myserial("COM5"); //connect to COM port
 
-string str = "";    //new string
-str = to_string(pitch) + "," + to_string(yaw) + ".";    //concatenate string and angles from int to string
-const char* c = str.c_str();    //convert strin to const char*
+  string str = "";    //new string
+  str = to_string(pitch) + "," + to_string(yaw) + ".";    //  concatenate string and angles from int to string
+  const char* c = str.c_str();    //convert strin to const char*
 
-myserial.write(c, sizeof(c));   //send string over serial
+  myserial.write(c, str.size());   //send string over serial
+
+  return 0;
+}
 ```
 
 ## Parameters
