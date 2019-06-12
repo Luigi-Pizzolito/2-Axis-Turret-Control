@@ -26,11 +26,11 @@ char serialbuf[32];             //This gives the incoming serial some room. Chan
 #define START_TIME          500         //Servo Settings
 #define END_TIME            25000
 #define UP_ZERO             (-18)       //Center point for top servo
-#define DOWN_ZERO           (65)        //Center point for bottom servo
+#define DOWN_ZERO           0          //Center point for bottom servo
 #define UP_MIN              (-90)       //Minimum and Maximum angle values for top servo
 #define UP_MAX              (90)        
 #define DOWN_MIN            (-135)      //Minimum and Maximum angle values for bottom servo
-#define DOWN_MAX            (135)       
+#define DOWN_MAX            (135)      
 int angel_convert(int);
 bool myServo_up_control(uint8_t *, size_t);
 bool myServo_down_control(uint8_t *, size_t);
