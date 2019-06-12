@@ -51,6 +51,7 @@ int main() {
 ## Parameters
 | Parameter | Default Value | Explanation |
 | --- | --- | --- |
+| ease_amount | `20` | Delay in ms between every movement of 1°, smoothness/movement speed |
 | BAUD_RATE | `115200` | Baud rate for serial communications |
 | EOPmarker | `'.'` | End of serial packet marker |
 | Servo_up_pin | `9` | PWM pin for top servo
