@@ -20,6 +20,7 @@ char serialbuf[32];             //This gives the incoming serial some room. Chan
 
 //************************************** SERVO VARIABLES ***************************************
 #include <Servo.h>                      //Default Servo Library
+#define ease_amount         20         //easing for smooth motion, higher=rougher.
 #define Servo_up_pin        9           //PWM pin for top servo
 #define Servo_down_pin      10          //PWM pin for bottom servo
 #define START_TIME          500         //Servo Settings
@@ -114,6 +115,12 @@ bool myServo_up_control(int angel)
         angel = UP_MIN;
 
     angel = angel_convert(angel + UP_ZERO); //convert angle to servo value
+    while (myServo_up.read() != angel) {    //ease in value for smooth motion
+      if (myServo_up.read() > angel) myServo_up.write(myServo_up.read()-1); 
+      if (myServo_up.read() < angel) myServo_up.write(myServo_up.read()+1); 
+      if (myServo_up.read() == 180 || myServo_up.read() == 0) break; //exit if at servo's limits
+      delay(ease_amount);
+    }
     myServo_up.write(angel);                //write value and move servo
 }
 
@@ -127,6 +134,12 @@ bool myServo_down_control(int angel)
         angel = DOWN_MIN;
 
     angel = angel_convert(angel + DOWN_ZERO); //convert angle to servo value
+    while (myServo_down.read() != angel) {    //ease in value for smooth motion
+      if (myServo_down.read() > angel) myServo_down.write(myServo_down.read()-1); 
+      if (myServo_down.read() < angel) myServo_down.write(myServo_down.read()+1);
+      if (myServo_down.read() == 180 || myServo_down.read() == 0) break; //exit if at servo's limits
+      delay(ease_amount);
+    }
     myServo_down.write(angel);                //write value and move servo
 }
 //===================================================================================
