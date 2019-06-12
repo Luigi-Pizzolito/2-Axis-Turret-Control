@@ -57,7 +57,7 @@ int main() {
 | Servo_up_pin | `9` | PWM pin for top servo
 | Servo_down_pin | `10` | PWM pin for bottom servo
 | UP_ZERO | `(-18)` | Center point for top servo
-| DOWN_ZERO | `(65)` | Center point for bottom servo
+| DOWN_ZERO | `0` | Center point for bottom servo
 | UP_MIN | `(-90)` | Minimum angle value for top servo
 | UP_MAX | `90` | Maximum angle value for top servo
 | UP_MIN | `(-135)` | Minimum angle value for bottom servo
