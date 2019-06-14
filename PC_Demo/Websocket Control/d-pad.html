@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>D-Pad</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body>
+    <script>
+        // var wsUri = "ws://192.168.1.170:8080";
+        // var wsUri = "ws://192.168.1.173:8080";
+        var wsUri = "ws://10.42.0.13:8080"; //insert websocket server adress here
+        var output;
+
+        function init() {
+            output = document.getElementById("output");
+            testWebSocket();
+        }
+
+        function testWebSocket() {
+            websocket = new WebSocket(wsUri);
+            websocket.onopen = function (evt) {
+                onOpen(evt)
+            };
+            websocket.onclose = function (evt) {
+                onClose(evt)
+            };
+            websocket.onmessage = function (evt) {
+                onMessage(evt)
+            };
+            websocket.onerror = function (evt) {
+                onError(evt)
+            };
+        }
+
+        function onOpen(evt) {
+            writeToScreen("CONNECTED");
+            // doSend("WebSocket rocks");
+            // doSend(pitch + "," + yaw + ".");
+        }
+
+        function onClose(evt) {
+            writeToScreen("DISCONNECTED");
+        }
+
+        function onMessage(evt) {
+            // writeToScreen('<span style="color: blue;">RESPONSE: ' + evt.data + '</span>');
+            // websocket.close();
+        }
+
+        function onError(evt) {
+            writeToScreen('<span style="color: red;">ERROR:</span> ' + evt.data);
+        }
+
+        function doSend(message) {
+            // writeToScreen("SENT: " + message);
+            websocket.send(message);
+        }
+
+        function writeToScreen(message) {
+            var pre = document.createElement("p");
+            pre.style.wordWrap = "break-word";
+            pre.innerHTML = message;
+            output.appendChild(pre);
+        }
+
+        window.addEventListener("load", init, false);
+
+
+
+        var pitch = 0;
+        var yaw = 0;
+
+        function movTur(trans) {
+            pitch += trans[0];
+            if (pitch > 90) pitch = 90;
+            if (pitch < -90) pitch = -90;
+            yaw += trans[1];
+            if (yaw > 135) yaw = 135;
+            if (yaw < -135) yaw = -135;
+            doSend(pitch + "," + yaw + ".");
+        }
+
+        function setTur(coords) {
+            pitch = coords[0];
+            yaw = coords[1];
+            doSend(pitch + "," + yaw + ".");
+        }
+    </script>
+    <table>
+        <tr>
+            <td>
+                <button class="btn btn-secondary" onclick="movTur([-10,-10]);"></button>
+            </td>
+            <td>
+                <button class="btn btn-secondary" onclick="movTur([-10,-5]);"></button>
+            </td>
+            <td>
+                <button onclick="movTur([-10,0]);" class="btn btn-secondary text-center" class="btn btn-secondary">Up
+                    10°</button>
+            </td>
+            <td>
+                <button class="btn btn-secondary" onclick="movTur([-10,5]);"></button>
+            </td>
+            <td>
+                <button class="btn btn-secondary" onclick="movTur([-10,10]);"></button>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                    <button class="btn btn-secondary" onclick="movTur([-5,-10]);"></button>
+            </td>
+            <td>
+                    <button class="btn btn-secondary" onclick="movTur([-5,-5]);"></button>
+            </td>
+            <td>
+                <button onclick="movTur([-5,0]);" class="btn btn-secondary text-center">Up 5°</button>
+            </td>
+            <td>
+                    <button class="btn btn-secondary" onclick="movTur([-5,5]);"></button>
+            </td>
+            <td>
+                    <button class="btn btn-secondary" onclick="movTur([-5,10]);"></button>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <button onclick="movTur([0,-10]);" class="btn btn-secondary text-center">Left 10°</button>
+            </td>
+            <td>
+                <button onclick="movTur([0,-5]);" class="btn btn-secondary text-center">Left 5°</button>
+            </td>
+            <td>
+                <button onclick="setTur([0,0]);" class="btn btn-secondary text-center">Center</button>
+            </td>
+            <td>
+                <button onclick="movTur([0,5]);" class="btn btn-secondary text-center">Right 5°</button>
+            </td>
+            <td>
+                <button onclick="movTur([0,10]);" class="btn btn-secondary text-center">Right 10°</button>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                    <button class="btn btn-secondary" onclick="movTur([5,-10]);"></button>
+            </td>
+            <td>
+                    <button class="btn btn-secondary" onclick="movTur([5,-5]);"></button>
+            </td>
+            <td>
+                <button onclick="movTur([5,0]);" class="btn btn-secondary text-center">Down 5°</button>
+            </td>
+            <td>
+                    <button class="btn btn-secondary" onclick="movTur([5,5]);"></button>
+            </td>
+            <td>
+                    <button class="btn btn-secondary" onclick="movTur([5,10]);"></button>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                    <button class="btn btn-secondary" onclick="movTur([10,-10]);"></button>
+            </td>
+            <td>
+                    <button class="btn btn-secondary" onclick="movTur([10,-5]);"></button>
+            </td>
+            <td>
+                <button onclick="movTur([10,0]);" class="btn btn-secondary text-center">Down 10°</button>
+            </td>
+            <td>
+                    <button class="btn btn-secondary" onclick="movTur([10,5]);"></button>
+            </td>
+            <td>
+                    <button class="btn btn-secondary" onclick="movTur([10,10]);"></button>
+            </td>
+        </tr>
+    </table>
+    <div id="output"></div>
+</body>
+
+</html>
