@@ -1,4 +1,5 @@
 # Servo Control
+![Project Image](https://github.com/Gangster45671/Gangster45671.github.io/raw/master/websocketcameraturret.jpg)
 Code for controling a 2-axis servo turret from an Arduino's serial input.
 
 ## Table of Contents
